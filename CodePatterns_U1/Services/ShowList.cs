@@ -9,18 +9,25 @@ namespace CodePatterns_U1.Services
 {
     public class ShowList
     {
-        public static void ShowAnimals(List<IAnimal> animallist)
+        public static void ShowAnimals(List<IAnimal> animallist, bool showWithOwner)
         {
             foreach (IAnimal a in animallist)
             {
-                Console.WriteLine(a.AnimalName);
+                if (showWithOwner == true)
+                {
+                    Console.WriteLine($"Djur: {a.AnimalName}, Ägare: {a.Owner.Name} {a.Owner.PhoneNumber} {a.Owner.Email}");
+                }
+                else
+                {
+                    Console.WriteLine($"Animal name: {a.AnimalName}");
+                }  
             }
         }
         public static void ShowCustomers(List<ICustomer> custlist)
         {
             foreach (ICustomer cust in custlist)
             {
-                Console.WriteLine(cust.Name);
+                Console.WriteLine($"Name: {cust.Name}, phonenumber: {cust.PhoneNumber}, email: {cust.Email}");
             }
         }
         public static void ShowCheckedInAnimals(List<IAnimal> animallist, List<ICustomer> custlist)
@@ -35,26 +42,13 @@ namespace CodePatterns_U1.Services
             }
             if (newList.Count != 0)
             {
-                ShowAnimalsWithOwners(newList, custlist);
+                ShowAnimals(newList, true);
             }
             else
             {
                 Console.WriteLine("Det finns inga incheckade djur just nu.");
             }
                 
-        }
-        public static void ShowAnimalsWithOwners(List<IAnimal> animallist, List<ICustomer> custlist)
-        {
-            foreach (IAnimal a in animallist)
-            {
-                foreach (ICustomer cust in custlist)
-                {
-                    if (a.Owner == cust.Name)
-                    {
-                        Console.WriteLine($"Djur: {a.AnimalName}, Ägare: {cust.Name} {cust.PhoneNumber} {cust.Email}");
-                    }
-                }
-            }
         }
     }
 }

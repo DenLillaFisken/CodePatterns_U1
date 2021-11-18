@@ -59,14 +59,14 @@ namespace CodePatterns_U1.Services
 
                         case "4":
                             //Se vilka djur som finns registrerade
-                            ShowList.ShowAnimals(animalList);
+                            ShowList.ShowAnimals(animalList, false);
 
                             ReloadMenu(custList, animalList, exServiceList, receiptsList);
                             break;
 
                         case "5":
                             //Se vilka djur som tillhör vilka kunder
-                            ShowList.ShowAnimalsWithOwners(animalList, custList);
+                            ShowList.ShowAnimals(animalList, true);
 
                             ReloadMenu(custList, animalList, exServiceList, receiptsList);
                             break;
@@ -74,7 +74,7 @@ namespace CodePatterns_U1.Services
                         case "6":
                             //Checka in ett djur
                             var checkinAnimal = Factory.CreateAnimal();
-                            checkinAnimal.CheckInAnimal(animalList);
+                            checkinAnimal.CheckInAnimal(animalList, receiptsList);
 
                             ReloadMenu(custList, animalList, exServiceList, receiptsList);
                             break;

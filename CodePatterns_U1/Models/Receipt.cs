@@ -32,6 +32,12 @@ namespace CodePatterns_U1.Models
                 if (receipt.CheckIfAnimalHasReceipt(receiptList, animalName))
                 {
                     receipt = GetReceipt(receiptList, animalName);
+                    if(receipt.ExtraServices == null)
+                    {
+                        //skapa en lista
+                        List<IExtraService> newlist = new List<IExtraService>();
+                        receipt.ExtraServices = newlist;
+                    }
                     receipt.ExtraServices.Add(extraService);
                 }
                 else
@@ -41,7 +47,8 @@ namespace CodePatterns_U1.Models
                     receipt.ExtraServices = newList;
                     receipt.ExtraServices.Add(extraService);
                     receiptList.Add(receipt);
-                } 
+                }
+                Console.WriteLine($"Du har lagt till tjänsten {extraService.Name}");
             }
             else
             {
@@ -62,7 +69,7 @@ namespace CodePatterns_U1.Models
                 int totalAmount = baseCost + extraServiceCost;
                 return totalAmount;
             }
-            return 0;
+            return baseCost;
         }
 
         //Skriver ut kvittot i consolen
@@ -76,11 +83,15 @@ namespace CodePatterns_U1.Models
             {
                 if (r.Animal.AnimalName == animalName)
                 {
-                    foreach (IExtraService e in r.ExtraServices)
+                    if (r.ExtraServices != null)
                     {
-                        Console.WriteLine($"Extratjänster: {e.Name}....... kostnad: {e.Price}");
+                        foreach (IExtraService e in r.ExtraServices)
+                        {
+                            Console.WriteLine($"Extratjänster: {e.Name}....... kostnad: {e.Price}");
+                        }
+
                     }
-                   
+                    
                     Console.WriteLine($"Baskostnad: {r.Price}");
                     //skicka lista till calculateTotalPrice -> få tillbaks total kostnad
                     int cost = CalculateTotalPrice(r.ExtraServices, r.Price);
@@ -113,6 +124,16 @@ namespace CodePatterns_U1.Models
                 }
             }
             return null;
+        }
+        //Skapar kvitto för specifikt djur utan tilläggstjänster
+        public void CreateBaseReceipt(List<IReceipt> receiptlist, string animal, List<IAnimal> animalList)
+        {
+            var getAnimal = Factory.CreateAnimal();
+            
+            var receipt = Factory.CreateReceipt();
+            receipt.Animal = getAnimal.GetAnimal(animal, animalList);
+
+            receiptlist.Add(receipt);
         }
     }
 }

@@ -12,16 +12,16 @@ namespace CodePatterns_U1
             //Mock-data
             List<ICustomer> customerList = new List<ICustomer>
             {
-                new Customer {Name="Oskar", PhoneNumber=123, Email="oskar@oskar.se"},
-                new Customer {Name="Lena", PhoneNumber=123, Email="lena@lena.se"},
-                new Customer {Name="Ronja", PhoneNumber=123, Email="ronja@ronja.se"},
+                new Customer {Name="Oskar", PhoneNumber=123, Email="oskar@oskar.se", Animals= new() {} },
+                new Customer {Name="Lena", PhoneNumber=123, Email="lena@lena.se", Animals= new() {}},
+                new Customer {Name="Ronja", PhoneNumber=123, Email="ronja@ronja.se", Animals= new() {}},
             };
             List<IAnimal> animalList = new List<IAnimal>
             {
-               new Animal {AnimalName="Tuss", Owner="Oskar", IsCheckedIn=false },
-               new Animal {AnimalName="Sune", Owner="Lena", IsCheckedIn=false },
-               new Animal {AnimalName="Rufus", Owner="Ronja", IsCheckedIn=false },
-               new Animal {AnimalName="Poppy", Owner="Lena", IsCheckedIn=false },
+               new Animal {AnimalName="Tuss", Owner=new Customer(){Name="Oskar", Email="oskar@oskar.se", PhoneNumber=123 }, IsCheckedIn=false },
+               new Animal {AnimalName="Sune", Owner=new Customer(){Name="Lena", PhoneNumber=123, Email="lena@lena.se"}, IsCheckedIn=false },
+               new Animal {AnimalName="Rufus", Owner=new Customer(){Name="Ronja", PhoneNumber=123, Email="ronja@ronja.se"}, IsCheckedIn=false },
+               new Animal {AnimalName="Poppy", Owner=new Customer(){Name="Ronja", PhoneNumber=123, Email="ronja@ronja.se"}, IsCheckedIn=false }
             };
             List<IExtraService> extraservicesList = new List<IExtraService>
             {

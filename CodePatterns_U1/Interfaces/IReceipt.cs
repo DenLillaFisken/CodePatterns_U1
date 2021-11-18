@@ -17,6 +17,7 @@ namespace CodePatterns_U1.Interfaces
         bool CheckIfAnimalHasReceipt(List<IReceipt> receiptlist, string animal);
         void ShowReceipt(List<IReceipt> receiptlist, string animalName);
         IReceipt GetReceipt(List<IReceipt> receiptlist, string animal);
+        void CreateBaseReceipt(List<IReceipt> receiptlist, string animal, List<IAnimal> animalList);
 
     }
 }

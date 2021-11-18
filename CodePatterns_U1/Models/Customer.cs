@@ -13,6 +13,7 @@ namespace CodePatterns_U1.Models
         public string Name { get; set; }
         public long PhoneNumber { get; set; }
         public string Email { get; set; }
+        public List<IAnimal> Animals { get; set; }
 
         //Registersra en kund
         public void RegisterCustomer(ICustomer cust, List<ICustomer> custlist)
@@ -28,18 +29,19 @@ namespace CodePatterns_U1.Models
             if (validation.ValidatePhoneNumber(phoneNumber))
             {
                 cust.PhoneNumber = Convert.ToInt64(phoneNumber);
+                Console.WriteLine("Ange mailadress: ");
+                cust.Email = Console.ReadLine();
+
+                //Lägg till i lista/spara i "db"
+                custlist.Add(cust);
+
+                Console.WriteLine($"{cust.Name} är nu registrerad.");
             }
             else
             {
                 Console.WriteLine("Felaktigt telefonnummer!");
                 RegisterCustomer(cust, custlist);
-            }
-
-            Console.WriteLine("Ange mailadress: ");
-            cust.Email = Console.ReadLine();
-
-            //Lägg till i lista/spara i "db"
-            custlist.Add(cust);
+            } 
         }
 
         //Kontrollera om kunden/ägaren är registrerad
@@ -53,6 +55,18 @@ namespace CodePatterns_U1.Models
                 }
             }
             return false;
+        }
+        //Hämtar en specifik kund baserat på namn
+        public ICustomer GetCustomer(string name, List<ICustomer> custList)
+        {
+            foreach (ICustomer cust in custList)
+            {
+                if (cust.Name == name)
+                {
+                    return cust;
+                }
+            }
+            return null;
         }
     }
 }
