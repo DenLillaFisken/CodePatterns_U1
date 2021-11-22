@@ -18,6 +18,7 @@ namespace CodePatterns_U1.Interfaces
         void ShowReceipt(List<IReceipt> receiptlist, string animalName);
         IReceipt GetReceipt(List<IReceipt> receiptlist, string animal);
         void CreateBaseReceipt(List<IReceipt> receiptlist, string animal, List<IAnimal> animalList);
+        void RemoveReceipt(List<IReceipt> receiptlist, string animal);
 
     }
 }

@@ -138,5 +138,16 @@ namespace CodePatterns_U1.Models
 
             receiptlist.Add(receipt);
         }
+
+        //Tar bort ett kvitto 
+        public void RemoveReceipt(List<IReceipt> receiptlist, string animal)
+        {
+            //hitta kvittot
+            var receipt = Factory.CreateReceipt();
+            receipt = GetReceipt(receiptlist, animal);
+
+            //ta bort kvittot från listan
+            receiptlist.Remove(receipt);
+        }
     }
 }

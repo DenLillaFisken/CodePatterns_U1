@@ -81,9 +81,12 @@ namespace CodePatterns_U1.Models
                         a.IsCheckedIn = false;
 
                         //Skicka kvitto
-                        var createReceipt = Factory.CreateReceipt();
-                        createReceipt.ShowReceipt(receiptlist, animalName);
+                        var receipt = Factory.CreateReceipt();
+                        receipt.ShowReceipt(receiptlist, animalName);
                         output.ShowOutput($"Du har checkat ut {animalName}");
+
+                        //ta bort kvittot
+                        receipt.RemoveReceipt(receiptlist, animalName);
                     }
                 }
             }
