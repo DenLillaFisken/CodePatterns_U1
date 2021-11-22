@@ -36,5 +36,13 @@ namespace CodePatterns_U1
         {
             return new ValidationService();
         }
+        public static Iinput CreateInputService()
+        {
+            return new InputService();
+        }
+        public static IOutput CreateOutputService()
+        {
+            return new OutputService();
+        }
     }
 }

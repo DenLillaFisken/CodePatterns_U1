@@ -15,17 +15,20 @@ namespace CodePatterns_U1.Models
 
         public IExtraService PickExtraService(List<IExtraService> exserviceList)
         {
+            var output = Factory.CreateOutputService();
+            var input = Factory.CreateInputService();
+
             ShowExtraServices(exserviceList);
 
-            Console.WriteLine("Välj från listan ovan vilken extratjänst du vill lägga till (skriv numret från listan)");
+            output.ShowOutput("Välj från listan ovan vilken extratjänst du vill lägga till (skriv numret från listan)");
             var choise = 0;
             try
             {
-                choise = Convert.ToInt32(Console.ReadLine());
+                choise = Convert.ToInt32(input.GetInput());
             }
             catch
             {
-                Console.WriteLine("Du måste välja från listan.");
+                output.ShowOutput("Du måste välja från listan.");
             }
 
             return exserviceList[choise - 1];
@@ -33,10 +36,11 @@ namespace CodePatterns_U1.Models
 
         public void ShowExtraServices(List<IExtraService> exserviceList)
         {
+            var output = Factory.CreateOutputService();
             int count = 1;
             foreach (IExtraService e in exserviceList)
             {
-                Console.WriteLine($"{count}. {e.Name} kostnad: {e.Price}, beskrivning: {e.Description}");
+                output.ShowOutput($"{count}. {e.Name} kostnad: {e.Price}, beskrivning: {e.Description}");
                 count++;
             }
         }

@@ -16,9 +16,12 @@ namespace CodePatterns_U1.Models
         //Lägg till en extratjänst till ett registrerat djur
         public void AddExtraServiceToAnimal(IReceipt receipt, List<IExtraService> exserviceList, List<IAnimal> animalList, List<IReceipt> receiptList)
         {
+            var output = Factory.CreateOutputService();
+            var input = Factory.CreateInputService();
+
             //Välj vilket djur det gäller
-            Console.WriteLine("Skriv namnet på djuret som ska ha extratjänsten: ");
-            string animalName = Console.ReadLine();
+            output.ShowOutput("Skriv namnet på djuret som ska ha extratjänsten: ");
+            string animalName = input.GetInput();
 
             //Kontrollera om djuret finns registerat
             var animal = Factory.CreateAnimal();
@@ -48,11 +51,11 @@ namespace CodePatterns_U1.Models
                     receipt.ExtraServices.Add(extraService);
                     receiptList.Add(receipt);
                 }
-                Console.WriteLine($"Du har lagt till tjänsten {extraService.Name}");
+                output.ShowOutput($"Du har lagt till tjänsten {extraService.Name}");
             }
             else
             {
-                Console.WriteLine("Djuret du uppgav fanns inte, vänligen börja om.");
+                output.ShowOutput("Djuret du uppgav fanns inte, vänligen börja om.");
             }     
         }
 
@@ -75,9 +78,10 @@ namespace CodePatterns_U1.Models
         //Skriver ut kvittot i consolen
         public void ShowReceipt(List<IReceipt> receiptlist, string animalName)
         {
+            var output = Factory.CreateOutputService();
 
-            Console.WriteLine("KVITTO");
-            Console.WriteLine($"Djur: {animalName}");
+            output.ShowOutput("KVITTO");
+            output.ShowOutput($"Djur: {animalName}");
 
             foreach (IReceipt r in receiptlist)
             {
@@ -87,15 +91,14 @@ namespace CodePatterns_U1.Models
                     {
                         foreach (IExtraService e in r.ExtraServices)
                         {
-                            Console.WriteLine($"Extratjänster: {e.Name}....... kostnad: {e.Price}");
+                            output.ShowOutput($"Extratjänster: {e.Name}....... kostnad: {e.Price}");
                         }
-
                     }
-                    
-                    Console.WriteLine($"Baskostnad: {r.Price}");
+
+                    output.ShowOutput($"Baskostnad: {r.Price}");
                     //skicka lista till calculateTotalPrice -> få tillbaks total kostnad
                     int cost = CalculateTotalPrice(r.ExtraServices, r.Price);
-                    Console.WriteLine($"Total kostnad: {cost}");
+                    output.ShowOutput($"Total kostnad: {cost}");
                 }
             }        
         }
@@ -129,8 +132,8 @@ namespace CodePatterns_U1.Models
         public void CreateBaseReceipt(List<IReceipt> receiptlist, string animal, List<IAnimal> animalList)
         {
             var getAnimal = Factory.CreateAnimal();
-            
             var receipt = Factory.CreateReceipt();
+
             receipt.Animal = getAnimal.GetAnimal(animal, animalList);
 
             receiptlist.Add(receipt);

@@ -29,9 +29,12 @@ namespace CodePatterns_U1.Models
 
         //Ändrar status på ett djur till incheckad
         public void CheckInAnimal(List<IAnimal> animallist, List<IReceipt> receiptList)
-        { 
-            Console.WriteLine("Ange djurets namn: ");
-            string animalName = Console.ReadLine();
+        {
+            var output = Factory.CreateOutputService();
+            var input = Factory.CreateInputService();
+
+            output.ShowOutput("Ange djurets namn: ");
+            string animalName = input.GetInput();
 
             //Kontrollera att djuret faktiskt finns registrerat
             if (CheckAnimalExists(animalName, animallist))
@@ -47,31 +50,32 @@ namespace CodePatterns_U1.Models
                         {
                             receipt.CreateBaseReceipt(receiptList, animalName, animallist);
                         }
-                        
-                        Console.WriteLine($"Du har checkat in {animalName}");
+
+                        output.ShowOutput($"Du har checkat in {animalName}");
                     }
                 }
             }
             else
             {
-                Console.WriteLine("Djuret du angivit finns inte registrerat. Försök med ett annat namn eller registrera djuret.");
+                output.ShowOutput("Djuret du angivit finns inte registrerat. Försök med ett annat namn eller registrera djuret.");
             }  
         }
 
         //Skriv in djurets namn och hämta/ändra info ur lista samt skapa kvitto
         public void CheckOutAnimal(List<IAnimal> animallist, List<IReceipt> receiptlist)
         {
-            
-            Console.WriteLine("Ange djurets namn: ");
-            string animalName = Console.ReadLine();
+            var output = Factory.CreateOutputService();
+            var input = Factory.CreateInputService();
+
+            output.ShowOutput("Ange djurets namn: ");
+            string animalName = input.GetInput();
 
             if (CheckAnimalExists(animalName, animallist) && CheckIfAnimalIsCheckedIn(animalName, animallist))
             {
                 //Status sätts till utcheckad (false)
                 foreach (IAnimal a in animallist)
                 {
-                    //kontrollera om djuret redan är incheckat
-                   
+                    //kontrollera om djuret redan är incheckat     
                     if (a.AnimalName == animalName)
                     {
                         a.IsCheckedIn = false;
@@ -79,13 +83,13 @@ namespace CodePatterns_U1.Models
                         //Skicka kvitto
                         var createReceipt = Factory.CreateReceipt();
                         createReceipt.ShowReceipt(receiptlist, animalName);
-                        Console.WriteLine($"Du har checkat ut {animalName}");
+                        output.ShowOutput($"Du har checkat ut {animalName}");
                     }
                 }
             }
             else
             {
-                Console.WriteLine("Djuret du angivit finns inte registrerat eller är inte incheckat. Försök med ett annat namn eller registrera djuret.");
+                output.ShowOutput("Djuret du angivit finns inte registrerat eller är inte incheckat. Försök med ett annat namn eller registrera djuret.");
             }
         }
 
@@ -106,12 +110,14 @@ namespace CodePatterns_U1.Models
         public void RegisterAnimal(IAnimal animal, List<IAnimal> animallist, List<ICustomer> custlist)
         {
             var custValidation = Factory.CreateCustomer();
+            var output = Factory.CreateOutputService();
+            var input = Factory.CreateInputService();
 
-            Console.WriteLine("Ange djurets namn: ");
-            animal.AnimalName = Console.ReadLine();
+            output.ShowOutput("Ange djurets namn: ");
+            animal.AnimalName = input.GetInput();
 
-            Console.WriteLine("Ange djurets Ägare: ");
-            string owner = Console.ReadLine();
+            output.ShowOutput("Ange djurets Ägare: ");
+            string owner = input.GetInput();
 
             //Kontrollera att kunden/ägaren finns i "db"
             if (custValidation.SeeIfOwnerExists(owner, custlist))
@@ -125,11 +131,11 @@ namespace CodePatterns_U1.Models
                 List<IAnimal> templist = new List<IAnimal>();
                 validatedOwner.Animals = templist;
                 validatedOwner.Animals.Add(animal);
-                Console.WriteLine($"{animal.AnimalName} är nu registrerad.");
+                output.ShowOutput($"{animal.AnimalName} är nu registrerad.");
             }
             else
             {
-                Console.WriteLine("Ägaren existerar inte. Vänligen registrera ägare först!");
+                output.ShowOutput("Ägaren existerar inte. Vänligen registrera ägare först!");
             }       
         }
 

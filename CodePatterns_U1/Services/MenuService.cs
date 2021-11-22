@@ -11,28 +11,31 @@ namespace CodePatterns_U1.Services
     {
         public void ChooseMenuAlternative(List<ICustomer> custList, List<IAnimal> animalList, List<IExtraService> exServiceList, List<IReceipt> receiptsList)
         {
-            Console.WriteLine("1. Registrera ny kund ");
-            Console.WriteLine("2. Registrera djur ");
-            Console.WriteLine("3. Se registrerade kunder ");
-            Console.WriteLine("4. Se registrerade djur ");
-            Console.WriteLine("5. Vilka djur tillhör vilka kunder");
-            Console.WriteLine("6. Anmäl att ett djur är inlämnat ");
-            Console.WriteLine("7. Anmäl att ett djur är hämtat");
-            Console.WriteLine("8. Se nuvarande inlämnade djur samt ägare till dessa");
-            Console.WriteLine("9. Koppla extratjänster till ett djur");
-            Console.WriteLine("");
+            var output = Factory.CreateOutputService();
+            var input = Factory.CreateInputService();
 
-            Console.WriteLine("Välj ditt val genom att skriva en siffra nedan:");
+            output.ShowOutput("1. Registrera ny kund ");
+            output.ShowOutput("2. Registrera djur ");
+            output.ShowOutput("3. Se registrerade kunder ");
+            output.ShowOutput("4. Se registrerade djur ");
+            output.ShowOutput("5. Vilka djur tillhör vilka kunder");
+            output.ShowOutput("6. Anmäl att ett djur är inlämnat ");
+            output.ShowOutput("7. Anmäl att ett djur är hämtat");
+            output.ShowOutput("8. Se nuvarande inlämnade djur samt ägare till dessa");
+            output.ShowOutput("9. Koppla extratjänster till ett djur");
+            output.ShowOutput("");
+
+            output.ShowOutput("Välj ditt val genom att skriva en siffra nedan:");
 
             try
             {
                 //validera input
-                var input = Console.ReadLine();
+                var menuInput = input.GetInput();
 
                 var validation = Factory.Validate();
-                if (validation.ValidateMenuChoise(input))
+                if (validation.ValidateMenuChoise(menuInput))
                 {
-                    switch (input)
+                    switch (menuInput)
                     {
                         case "1":
                             //Registrera ny kund 
@@ -103,20 +106,20 @@ namespace CodePatterns_U1.Services
                             break;
 
                         default:
-                            Console.WriteLine("Du skrev in fel, testa igen!");
+                            output.ShowOutput("Du skrev in fel, testa igen!");
                             ReloadMenu(custList, animalList, exServiceList, receiptsList);
                             break;
                     }
                 }
                 else
                 {
-                    Console.WriteLine("Du måste skriva in en siffra mellan 1 och 9.");
+                    output.ShowOutput("Du måste skriva in en siffra mellan 1 och 9.");
                     ReloadMenu(custList, animalList, exServiceList, receiptsList);
                 }
             }
             catch
             {
-                Console.WriteLine("Hoppsan, någonting gick visst fel. Testa igen.");
+                output.ShowOutput("Hoppsan, någonting gick visst fel. Testa igen.");
                 ReloadMenu(custList, animalList, exServiceList, receiptsList);
             }
         }

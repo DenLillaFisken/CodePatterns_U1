@@ -19,27 +19,30 @@ namespace CodePatterns_U1.Models
         public void RegisterCustomer(ICustomer cust, List<ICustomer> custlist)
         {
             var validation = Factory.Validate();
+            var output = Factory.CreateOutputService();
+            var input = Factory.CreateInputService();
 
-            Console.WriteLine("Ange namn: ");
-            cust.Name = Console.ReadLine();
+            output.ShowOutput("Ange namn: ");
+            cust.Name = input.GetInput();
 
-            Console.WriteLine("Ange telefonnummer: ");
-            string phoneNumber = Console.ReadLine();
+            output.ShowOutput("Ange telefonnummer: ");
+            string phoneNumber = input.GetInput();
+
             //Validera telefonnr
             if (validation.ValidatePhoneNumber(phoneNumber))
             {
                 cust.PhoneNumber = Convert.ToInt64(phoneNumber);
-                Console.WriteLine("Ange mailadress: ");
-                cust.Email = Console.ReadLine();
+                output.ShowOutput("Ange mailadress: ");
+                cust.Email = input.GetInput();
 
                 //Lägg till i lista/spara i "db"
                 custlist.Add(cust);
 
-                Console.WriteLine($"{cust.Name} är nu registrerad.");
+                output.ShowOutput($"{cust.Name} är nu registrerad.");
             }
             else
             {
-                Console.WriteLine("Felaktigt telefonnummer!");
+                output.ShowOutput("Felaktigt telefonnummer!");
                 RegisterCustomer(cust, custlist);
             } 
         }
