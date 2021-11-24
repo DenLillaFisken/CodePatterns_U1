@@ -12,6 +12,7 @@ namespace CodePatterns_U1.Interfaces
         int Price { get; set; }
         string Description { get; set; }
 
+        void AddExtraServiceToAnimal(IReceipt receipt, List<IExtraService> exserviceList, List<IAnimal> animalList, List<IReceipt> receiptList);
         void ShowExtraServices(List<IExtraService> exserviceList);
         IExtraService PickExtraService(List<IExtraService> exserviceList);
     }

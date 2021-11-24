@@ -12,7 +12,7 @@ namespace CodePatterns_U1.Interfaces
         List<IExtraService> ExtraServices { get; set; }
         IAnimal Animal { get; set; }
 
-        void AddExtraServiceToAnimal(IReceipt receipt, List<IExtraService> exserviceList, List<IAnimal> animalList, List<IReceipt> receiptList);
+        //void AddExtraServiceToAnimal(IReceipt receipt, List<IExtraService> exserviceList, List<IAnimal> animalList, List<IReceipt> receiptList);
         public int CalculateTotalPrice(List<IExtraService> serviceList, int baseCost);
         bool CheckIfAnimalHasReceipt(List<IReceipt> receiptlist, string animal);
         void ShowReceipt(List<IReceipt> receiptlist, string animalName);

@@ -100,7 +100,9 @@ namespace CodePatterns_U1.Services
                         case"9":
                             //koppla extratjänster till ett djur
                             var receipt = Factory.CreateReceipt();
-                            receipt.AddExtraServiceToAnimal(receipt, exServiceList, animalList, receiptsList);
+                            var extraService = Factory.CreateExtraService();
+
+                            extraService.AddExtraServiceToAnimal(receipt, exServiceList, animalList, receiptsList);
 
                             ReloadMenu(custList, animalList, exServiceList, receiptsList);
                             break;
@@ -127,7 +129,8 @@ namespace CodePatterns_U1.Services
         public void ReloadMenu(List<ICustomer> custList, List<IAnimal> animalList, List<IExtraService> exServiceList, List<IReceipt> receiptsList)
         {
             //För att ladda om menyn efter ett menyval så att inte applikationen dör.
-            Console.ReadLine();
+
+            Console.Clear();
             ChooseMenuAlternative(custList, animalList, exServiceList, receiptsList);
         }
     }
