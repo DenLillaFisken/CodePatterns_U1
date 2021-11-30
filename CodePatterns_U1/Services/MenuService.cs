@@ -129,7 +129,7 @@ namespace CodePatterns_U1.Services
         public void ReloadMenu(List<ICustomer> custList, List<IAnimal> animalList, List<IExtraService> exServiceList, List<IReceipt> receiptsList)
         {
             //För att ladda om menyn efter ett menyval så att inte applikationen dör.
-
+            Console.ReadKey();
             Console.Clear();
             ChooseMenuAlternative(custList, animalList, exServiceList, receiptsList);
         }
